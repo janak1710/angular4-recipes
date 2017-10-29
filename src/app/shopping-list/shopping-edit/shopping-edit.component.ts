@@ -1,6 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Ingredient} from '../../shared/ingredient.model';
+import {ShoppingListService} from '../shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -9,15 +10,14 @@ import {Ingredient} from '../../shared/ingredient.model';
 })
 export class ShoppingEditComponent implements OnInit {
 
-  @Output() ingredientAdded = new EventEmitter<Ingredient>();
-
-  constructor() { }
+  constructor(private shoppingListService: ShoppingListService) {
+  }
 
   ngOnInit() {
   }
 
   formSubmitted(f: NgForm) {
-    this.ingredientAdded.emit(<Ingredient>f.value);
+    this.shoppingListService.addIngredient(<Ingredient>f.value);
   }
 
 }
